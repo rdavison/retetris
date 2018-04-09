@@ -42,8 +42,8 @@ let flip = t => {
 
 let rec rotate = (dir, t) =>
   switch (dir) {
-  | `Left => transpose(t) |> flip
-  | `Right =>
-    let f = rotate(`Left);
+  | `Right => transpose(t) |> flip
+  | `Left =>
+    let f = rotate(`Right);
     f(f(f(t)));
   };
