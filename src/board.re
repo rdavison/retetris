@@ -15,25 +15,29 @@ let hasCollision = (piece, t) => {
   let (rows, cols) = piece |> Piece.shape |> Matrix.dimens;
   let shadowHasCollision = () => {
     let rec checkShadow = (r, c) =>
-      if(r < rows && c < cols) {
+      if (r < rows && c < cols) {
         let pieceCell = Option.join(Piece.get(piece, ~r, ~c));
-        let boardCell = Option.join(Matrix.get(t, ~r=(pos.row + r), ~c=(pos.col + c)));
-        switch((pieceCell, boardCell)) {
-          | (Some(_), Some(_)) => true
-          | (_      , _      ) => checkShadow(r, c + 1)
+        let boardCell =
+          Option.join(Matrix.get(t, ~r=pos.row + r, ~c=pos.col + c));
+        switch (pieceCell, boardCell) {
+        | (Some(_), Some(_)) => true
+        | (_, _) => checkShadow(r, c + 1)
         };
-      } else if(r < rows && c >= cols) {
-        checkShadow(r + 1, 0)
-      }
-      else {
+      } else if (r < rows && c >= cols) {
+        checkShadow(r + 1, 0);
+      } else {
         false;
       };
     checkShadow(0, 0);
   };
   pos.row < 0
-  || (pos.row + rows - 1) >= height(t)
+  || pos.row
+  + rows
+  - 1 >= height(t)
   || pos.col < 0
-  || (pos.col + cols - 1) >= width(t)
+  || pos.col
+  + cols
+  - 1 >= width(t)
   || shadowHasCollision();
 };
 
@@ -43,15 +47,9 @@ let writePieceToBoard = (piece, t) => {
   for (r in 0 to rows - 1) {
     for (c in 0 to cols - 1) {
       let data = piece |> Piece.shape |> Matrix.get(~r, ~c) |> Option.join;
-      switch(data) {
-        | None => ();
-        | Some(_) as data =>
-          Matrix.set(
-            t,
-            ~r=row + r,
-            ~c=col + c,
-            ~data
-          );
+      switch (data) {
+      | None => ()
+      | Some(_) as data => Matrix.set(t, ~r=row + r, ~c=col + c, ~data)
       };
     };
   };
@@ -59,11 +57,12 @@ let writePieceToBoard = (piece, t) => {
 
 let freeze = (piece, t) =>
   if (hasCollision(piece, t)) {
-    Result.Error(`Collision)
+    Result.Error(`Collision);
   } else {
     writePieceToBoard(piece, t);
-    Result.Ok()
+    Result.Ok();
   };
 
 let get = (t, ~r, ~c) => Matrix.get(t, ~r, ~c);
+
 let set = (t, ~r, ~c, ~data) => Matrix.set(t, ~r, ~c, ~data);

@@ -32,22 +32,22 @@ let move = (dir, t) => {
       ...t,
       pos: {
         row: row + 1,
-        col
-      }
+        col,
+      },
     }
   | `Left => {
       ...t,
       pos: {
         row,
         col: col - 1,
-      }
+      },
     }
   | `Right => {
       ...t,
       pos: {
         row,
-        col: col + 1
-      }
+        col: col + 1,
+      },
     }
   };
 };

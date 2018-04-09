@@ -23,9 +23,9 @@ let get = ({cells, rows, cols}, ~r, ~c) =>
   };
 
 let get_exn = (t, ~r, ~c) =>
-  switch(get(t, ~r, ~c)) {
-    | Some(x) => x
-    | None => failwith(Printf.sprintf("index out of bounds: (%d, %d)", r, c))
+  switch (get(t, ~r, ~c)) {
+  | Some(x) => x
+  | None => failwith(Printf.sprintf("index out of bounds: (%d, %d)", r, c))
   };
 
 let set = (t, ~r, ~c, ~data) => cells(t)[r][c] = data;
