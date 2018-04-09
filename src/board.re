@@ -31,13 +31,9 @@ let hasCollision = (piece, t) => {
     checkShadow(0, 0);
   };
   pos.row < 0
-  || pos.row
-  + rows
-  - 1 >= height(t)
+  || pos.row + rows - 1 >= height(t)
   || pos.col < 0
-  || pos.col
-  + cols
-  - 1 >= width(t)
+  || pos.col + cols - 1 >= width(t)
   || shadowHasCollision();
 };
 
