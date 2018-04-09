@@ -1,10 +1,8 @@
-[@deriving sexp]
 type point = {
   row: int,
   col: int,
 };
 
-[@deriving sexp]
 type color = [
   | `Red
   | `Orange
@@ -18,7 +16,6 @@ type color = [
   | `Black
 ];
 
-[@deriving sexp]
 type t = {
   shape: Matrix.t(option(color)),
   pos: point,

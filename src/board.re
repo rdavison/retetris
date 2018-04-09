@@ -1,6 +1,5 @@
 open! Import;
 
-[@deriving sexp]
 type t = Matrix.t(option(Piece.color));
 
 let make = (~rows, ~cols) => Matrix.init(rows, cols, ~f=(_, _) => None);
