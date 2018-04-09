@@ -1,0 +1,19 @@
+{
+  "name": "retetris",
+  "scripts": {
+    "start": "./lib/bs/bytecode/index.byte",
+    "start:native": "./lib/bs/native/index.native",
+    "build": "bsb -make-world",
+    "build:web": "bsb -make-world -backend js",
+    "build:native": "bsb -make-world -backend native",
+    "webpack": "webpack",
+    "clean": "bsb -clean-world"
+  },
+  "dependencies": {
+    "Reprocessing": "schmavery/reprocessing"
+  },
+  "devDependencies": {
+    "bs-platform": "bsansouci/bsb-native#2.1.1",
+    "webpack": "^1.14.0"
+  }
+}
